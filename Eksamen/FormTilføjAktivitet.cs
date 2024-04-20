@@ -7,11 +7,6 @@ namespace Eksamen
 {
     public partial class FormTilføjAktivitet : Form
     {
-        private FormAktiviteter formAktiviteter;
-        private FormTickets formTickets;
-        private FormKunder formKunder;
-        private FormBrugere formBrugere;
-        private FormDashboard formDashboard;
         private Menu menu = new Menu();
         private Ticket selectedTicket;
 
@@ -66,6 +61,20 @@ namespace Eksamen
             menu.ÅbnTickets(this);
         }
 
+
+
+        private void btnExit_Click(object sender, EventArgs e)
+        {
+            menu.Exit(this);
+        }
+
+        private void btnTilbageTilTickets_Click(object sender, EventArgs e)
+        {
+            menu.ÅbnTickets(this);
+        }
+
+
+
         private void btnTilføjTAktivitet_Click(object sender, EventArgs e)
         {
             // Alt skal være udfyldt
@@ -81,19 +90,10 @@ namespace Eksamen
             string navn = txtBoxNavn.Text;
             string ansvarlig = comboBoxAnsvarlig.SelectedItem.ToString();
             string beskrivelse = txtBoxBeskrivelse.Text;
-            
 
-            // Create a new Aktiviteter object with a new ID generated
-            Aktiviteter newAktivitet = new Aktiviteter(selectedTicket, selectedTicket.Id, navn, beskrivelse);
-
-            // Find the ticket in alleTicketsList with matching TicketNummer
-            Ticket matchingTicket = TicketData.alleTicketsList.FirstOrDefault(t => t.Id == selectedTicket.Id);
-
-            if (matchingTicket != null)
+            // Call create aktivitet
+            if (Aktiviteter.CreateNewActivity(selectedTicket, selectedTicket.Id, navn, beskrivelse))
             {
-                // Add the new Aktiviteter object to the matching ticket's Aktiviteter list
-                matchingTicket.Aktiviteter.Add(newAktivitet);
-
                 // Reset form controls
                 txtBoxNavn.Text = "";
                 comboBoxAnsvarlig.SelectedIndex = -1;
@@ -102,25 +102,12 @@ namespace Eksamen
             }
             else
             {
-                MessageBox.Show("Kunne ikke finde matchende ticket.", "Fejl", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("Kunne ikke tilføje aktivitet til ticket.", "Fejl", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
 
             // tilbage til formTickets
             menu.ÅbnTickets(this);
-
-
         }
 
-
-
-        private void btnExit_Click(object sender, EventArgs e)
-        {
-            menu.Exit(this);
-        }
-
-        private void btnTilbageTilTickets_Click(object sender, EventArgs e)
-        {
-            menu.ÅbnTickets(this);
-        }
     }
 }

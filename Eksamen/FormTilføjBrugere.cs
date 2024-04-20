@@ -4,12 +4,6 @@ namespace Eksamen
 {
     public partial class FormTilføjBrugere : Form
     {
-
-        private FormAktiviteter formAktiviteter;
-        private FormTickets formTickets;
-        private FormKunder formKunder;
-        private FormBrugere formBrugere;
-        private FormDashboard formDashboard;
         private Menu menu = new Menu();
 
 
@@ -19,14 +13,21 @@ namespace Eksamen
         {
             InitializeComponent();
 
-
-
         }
 
         private void formTilføjBrugere_Load(object sender, EventArgs e)
         {
 
+        }
 
+        private void btnTilbageTilBrugere_Click(object sender, EventArgs e)
+        {
+            menu.ÅbenBrugere(this);
+        }
+
+        private void btnExit_Click(object sender, EventArgs e)
+        {
+            menu.Exit(this);
         }
 
 
@@ -43,7 +44,7 @@ namespace Eksamen
                 return;
             }
 
-            // Findes firma allerede
+            // Findes bruger allerede
             string brugerNavn = txtBoxNavn.Text;
 
             if (unikBrugere(brugerNavn))
@@ -66,14 +67,13 @@ namespace Eksamen
                 }
                 else
                 {
-                    MessageBox.Show("Invalid telephone number format. Please enter a valid number.", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    MessageBox.Show("Ugyldigt telefonnummerformat. Indtast venligst et gyldigt nummer.", "Advarsel", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 }
             }
             else
             {
-                MessageBox.Show("The company name already exists.", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                MessageBox.Show("Brugernavnet eksisterer allerede.", "Advarsel", MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
-
         }
 
         private bool unikBrugere(string brugerNavn)
@@ -88,14 +88,6 @@ namespace Eksamen
             return true;
         }
 
-        private void btnTilbageTilBrugere_Click(object sender, EventArgs e)
-        {
-            menu.ÅbenBrugere(this);
-        }
 
-        private void btnExit_Click(object sender, EventArgs e)
-        {
-            menu.Exit(this);
-        }
     }
 }

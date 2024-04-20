@@ -20,8 +20,8 @@ namespace Eksamen
 
 
                 // Add activities to Ticket 1
-                ticket1.Aktiviteter.Add(aktivitet1);
-                ticket1.Aktiviteter.Add(aktivitet2);
+                ticket1.AktivitetList.Add(aktivitet1);
+                ticket1.AktivitetList.Add(aktivitet2);
 
                 // Add Ticket 1 to the list
                 TicketData.alleTicketsList.Add(ticket1);
@@ -34,8 +34,8 @@ namespace Eksamen
                 Aktiviteter aktivitet4 = new Aktiviteter(ticket2, 2, "Kontakt ISP", "Norlys på tlf: 12345678");
 
                 // Add activities to Ticket 2
-                ticket2.Aktiviteter.Add(aktivitet3);
-                ticket2.Aktiviteter.Add(aktivitet4);
+                ticket2.AktivitetList.Add(aktivitet3);
+                ticket2.AktivitetList.Add(aktivitet4);
 
                 // Add Ticket 2 to the list
                 TicketData.alleTicketsList.Add(ticket2);
@@ -46,12 +46,19 @@ namespace Eksamen
                 // Activities for Ticket 3
                 Aktiviteter aktivitet5 = new Aktiviteter(ticket3, 3, "Tjek strøm kabel", "Kabel sidder løst");
 
+                // Third Ticket
+                Ticket ticket4 = new Ticket("Puds hans glorie", "Ronnies biks og bajer", "Hans Hansen", "Åben");
 
-                // Add activities to Ticket 2
-                ticket3.Aktiviteter.Add(aktivitet5);
-  
+                // Activities for Ticket 4
+                Aktiviteter aktivitet6 = new Aktiviteter(ticket4, 4, "Hent pudsemiddel", "I T-Hansen");
+                Aktiviteter aktivitet7 = new Aktiviteter(ticket4, 4, "Puds glorie", "Pudse pudse");
+
+                // Add activities to Ticket 4
+                ticket4.AktivitetList.Add(aktivitet6);
+                ticket4.AktivitetList.Add(aktivitet7);
+
                 // Add Ticket 4 to the list
-                TicketData.alleTicketsList.Add(ticket3);
+                TicketData.alleTicketsList.Add(ticket4);
             }
 
         }
@@ -61,6 +68,7 @@ namespace Eksamen
         {
             KunderData.alleKunderList.Add(new Kunde("FirmaX", "123 Dinvej", "john.doe@example.com", "invoice@example.com", "Sølger alt hvad du ikke ønsker"));
             KunderData.alleKunderList.Add(new Kunde("FirmaY", "456 Ikkedinvej", "jane.smith@example.com", "invoice2@example.com", "Sælger alt hvad du ønsker"));
+            KunderData.alleKunderList.Add(new Kunde("Ronnies biks og bajer", "Hvilkenvej 123", "RonniePetersen@hotmail.com", "RonniePetersen@hotmail.com", "Verdensmand"));
         }
 
         public static void InitializeBrugere()

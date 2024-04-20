@@ -332,6 +332,7 @@
             btnFakturer.TabIndex = 40;
             btnFakturer.Text = "Luk og fakturer";
             btnFakturer.UseVisualStyleBackColor = true;
+            btnFakturer.Click += btnFakturer_Click;
             // 
             // btnSortLukket
             // 

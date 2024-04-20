@@ -160,18 +160,7 @@ namespace Eksamen
         private void btnTilføjBrugere_Click(object sender, EventArgs e)
         {
 
-            if (formTilføjBrugere == null || formTilføjBrugere.IsDisposed)
-            {
-                formTilføjBrugere = new FormTilføjBrugere();
-                formTilføjBrugere.FormClosed += (s, args) => this.Show();
-                formTilføjBrugere.Show();
-                this.Hide();
-            }
-            else
-            {
-                formTilføjBrugere.WindowState = FormWindowState.Normal;
-                formTilføjBrugere.BringToFront();
-            }
+            menu.ÅbenTilføjBrugere(this);
         }
 
         private void btnExit_Click(object sender, EventArgs e)

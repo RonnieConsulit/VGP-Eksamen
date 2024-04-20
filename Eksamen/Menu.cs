@@ -1,15 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
-
-namespace Eksamen
+﻿namespace Eksamen
 {
     public class Menu
     {
-        private FormTilføjAktivitet formTilføjAktivitet;
+
         private Form activeForm = null;
 
         private void OpenNewForm(Form newForm)
@@ -61,6 +54,11 @@ namespace Eksamen
         public void ÅbenTilføjTickets(Form parentForm)
         {
             OpenNewForm(new FormTilføjTickets());
+        }
+
+        public void ÅbenTilføjBrugere(Form parentForm)
+        {
+            OpenNewForm(new FormTilføjBrugere());
         }
 
 
