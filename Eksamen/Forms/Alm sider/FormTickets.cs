@@ -1,3 +1,6 @@
+using Eksamen.Classes;
+using Menu = Eksamen.Classes.Menu;
+
 namespace Eksamen
 {
     public partial class FormTickets : Form
@@ -5,6 +8,7 @@ namespace Eksamen
 
 
         private Ticket selectedTicket;
+        Ticket ticketInstance = new Ticket(); 
 
         public FormTickets()
         {
@@ -26,40 +30,40 @@ namespace Eksamen
 
         }
 
-        private Menu menu = new Menu();
+   
 
         private void btnDashboard_Click(object sender, EventArgs e)
         {
-            menu.ÅbnDashboard(this);
+            Menu.Instance.ÅbnDashboard(this);
         }
 
         private void btnAktiviteter_Click(object sender, EventArgs e)
         {
-            menu.ÅbnAktiviteter(this);
+            Menu.Instance.ÅbnAktiviteter(this);
         }
 
         private void btnTickets_Click(object sender, EventArgs e)
         {
-            menu.ÅbnTickets(this);
+            Menu.Instance.ÅbnTickets(this);
         }
 
         private void btnKunder_Click(object sender, EventArgs e)
         {
-            menu.ÅbnKunder(this);
+            Menu.Instance.ÅbnKunder(this);
         }
         private void btnBrugere_Click(object sender, EventArgs e)
         {
-            menu.ÅbenBrugere(this);
+            Menu.Instance.ÅbenBrugere(this);
         }
 
         private void btnExit_Click(object sender, EventArgs e)
         {
-            menu.Exit(this);
+            Menu.Instance.Exit(this);
         }
 
         private void btnTilføjTickets_Click(object sender, EventArgs e)
         {
-            menu.ÅbenTilføjTickets(this);
+            Menu.Instance.ÅbenTilføjTickets(this);
         }
 
 
@@ -71,16 +75,16 @@ namespace Eksamen
                 selectedTicket = (Ticket)listBoxTickets.SelectedItem;
 
 
-                comboBoxKunde.DataSource = KunderData.alleKunderList;
+                comboBoxKunde.DataSource = Personer.KundeData.alleKunderList;
                 comboBoxKunde.DisplayMember = "Navn";
                 comboBoxKunde.ValueMember = "Navn";
-                Kunde selectedKunde = KunderData.alleKunderList.FirstOrDefault(k => k.Navn == selectedTicket.Kunde);
+                Kunde selectedKunde = Personer.KundeData.alleKunderList.FirstOrDefault(k => k.Navn == selectedTicket.Kunde);
                 comboBoxKunde.SelectedItem = selectedKunde;
 
-                comboBoxAnsvarlig.DataSource = BrugerData.alleBrugereList;
+                comboBoxAnsvarlig.DataSource = Personer.BrugerData.alleBrugereList;
                 comboBoxAnsvarlig.DisplayMember = "Navn";
                 comboBoxAnsvarlig.ValueMember = "Navn";
-                Brugere selectedAnsvarlig = BrugerData.alleBrugereList.FirstOrDefault(b => b.Navn == selectedTicket.Ansvarlig);
+                Bruger selectedAnsvarlig = Personer.BrugerData.alleBrugereList.FirstOrDefault(b => b.Navn == selectedTicket.Ansvarlig);
                 comboBoxAnsvarlig.SelectedItem = selectedAnsvarlig;
 
                 comboBoxStatus.DataSource = TicketData.alleTicketStatus;
@@ -110,38 +114,73 @@ namespace Eksamen
 
         private void btnGem_Click(object sender, EventArgs e)
         {
-            selectedTicket.UpdateTicketInfo(comboBoxKunde, comboBoxAnsvarlig, comboBoxStatus, txtBoxNavn, listBoxTickets);
-
+            if (selectedTicket != null)
+            {
+                selectedTicket.UpdateTicketInfo(comboBoxKunde, comboBoxAnsvarlig, comboBoxStatus, txtBoxNavn, listBoxTickets);
+            }
+            else
+            {
+                MessageBox.Show("Ingen ticket valgt. Vælg venligst en ticket.", "Advarsel", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            }
         }
 
         private void btnSletTickets_Click(object sender, EventArgs e)
         {
-            selectedTicket.DeleteSelectedTicket(listBoxTickets, txtBoxNavn, comboBoxAnsvarlig, comboBoxKunde, comboBoxStatus, listBoxAktiviteter);
+            if (selectedTicket != null)
+            {
+                selectedTicket.DeleteSelectedTicket(listBoxTickets, txtBoxNavn, comboBoxAnsvarlig, comboBoxKunde, comboBoxStatus, listBoxAktiviteter);
+            }
+            else
+            {
+                MessageBox.Show("Ingen ticket valgt. Vælg venligst en ticket.", "Advarsel", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            }
         }
 
         private void btnTilføjAktivitet_Click(object sender, EventArgs e)
         {
-            selectedTicket.AddActivityToSelectedTicket(this, selectedTicket);
+            if (selectedTicket != null)
+            {
+                selectedTicket.AddActivityToSelectedTicket(this, selectedTicket);
+            }
+            else
+            {
+                MessageBox.Show("Ingen aktivitet valgt. Vælg venligst en aktivitet.", "Advarsel", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            }
         }
 
         private void btnSletAktivitet_Click(object sender, EventArgs e)
         {
-            selectedTicket.DeleteSelectedActivity(listBoxAktiviteter);
-        }
-
-        private void btnSortLukket_Click(object sender, EventArgs e)
-        {
-            selectedTicket.SortAndDisplayTicketsInListBoxClosed(listBoxTickets);
+            if (selectedTicket != null)
+            {
+                selectedTicket.DeleteSelectedActivity(listBoxAktiviteter);
+            }
+            else
+            {
+                MessageBox.Show("Ingen aktivitet valgt. Vælg venligst en aktivitet.", "Advarsel", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            }
         }
 
         private void btnSortÅbne_Click(object sender, EventArgs e)
         {
-            selectedTicket.SortAndDisplayTicketsInListBoxOpen(listBoxTickets);
+            ticketInstance.SortAndDisplayTicketsInListBox(listBoxTickets, "Åben");
+        }
+
+        private void btnSortLukket_Click(object sender, EventArgs e)
+        {
+            ticketInstance.SortAndDisplayTicketsInListBox(listBoxTickets, "Lukket");
         }
 
         private void btnFakturer_Click(object sender, EventArgs e)
         {
-            selectedTicket.FakturerTicket(listBoxTickets, selectedTicket.Kunde);
+            if (selectedTicket != null)
+            {
+                selectedTicket.FakturerTicket(listBoxTickets, selectedTicket.Kunde);
+            }
+            else
+            {
+                MessageBox.Show("Ingen ticket valgt. Vælg venligst en ticket.", "Advarsel", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            }
         }
+
     }
 }

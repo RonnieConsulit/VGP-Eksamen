@@ -1,14 +1,18 @@
 using System;
 using System.Linq;
 using System.Windows.Forms;
+using Eksamen.Classes;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement;
+using Menu = Eksamen.Classes.Menu;
 
 namespace Eksamen
 {
     public partial class FormTilføjAktivitet : Form
     {
-        private Menu menu = new Menu();
+
         private Ticket selectedTicket;
+        List<Bruger> brugerList = Personer.BrugerData.alleBrugereList;
+        List<Kunde> kundeList = Personer.KundeData.alleKunderList;
 
         public FormTilføjAktivitet(Ticket ticket)
         {
@@ -26,51 +30,51 @@ namespace Eksamen
             textBoxKunde.Text = selectedTicket.Kunde;
             txtBoxTicketId.Text = selectedTicket.Id.ToString();
 
-            var ansvarligNames = BrugerData.alleBrugereList.Select(bruger => bruger.Navn).ToList();
+            var ansvarligNames = Personer.BrugerData.alleBrugereList.Select(bruger => bruger.Navn).ToList();
             ansvarligNames.Insert(0, "");
             comboBoxAnsvarlig.DataSource = ansvarligNames;
         }
 
         private void btnDashboard_Click(object sender, EventArgs e)
         {
-            menu.ÅbnDashboard(this);
+            Menu.Instance.ÅbnDashboard(this);
         }
 
         private void btnAktiviteter_Click(object sender, EventArgs e)
         {
-            menu.ÅbnAktiviteter(this);
+            Menu.Instance.ÅbnAktiviteter(this);
         }
 
         private void btnTickets_Click(object sender, EventArgs e)
         {
-            menu.ÅbnTickets(this);
+            Menu.Instance.ÅbnTickets(this);
         }
 
         private void btnKunder_Click(object sender, EventArgs e)
         {
-            menu.ÅbnKunder(this);
+            Menu.Instance.ÅbnKunder(this);
         }
 
         private void btnBrugere_Click(object sender, EventArgs e)
         {
-            menu.ÅbenBrugere(this);
+            Menu.Instance.ÅbenBrugere(this);
         }
 
         private void btnTilbageTilTicket_Click(object sender, EventArgs e)
         {
-            menu.ÅbnTickets(this);
+            Menu.Instance.ÅbnTickets(this);
         }
 
 
 
         private void btnExit_Click(object sender, EventArgs e)
         {
-            menu.Exit(this);
+            Menu.Instance.Exit(this);
         }
 
         private void btnTilbageTilTickets_Click(object sender, EventArgs e)
         {
-            menu.ÅbnTickets(this);
+            Menu.Instance.ÅbnTickets(this);
         }
 
 
@@ -106,7 +110,7 @@ namespace Eksamen
             }
 
             // tilbage til formTickets
-            menu.ÅbnTickets(this);
+            Menu.Instance.ÅbnTickets(this);
         }
 
     }

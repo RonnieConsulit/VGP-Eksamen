@@ -1,11 +1,12 @@
 using System.Windows.Forms;
+using Eksamen.Classes;
+using Menu = Eksamen.Classes.Menu;
 
 namespace Eksamen
 {
     public partial class FormTilføjBrugere : Form
     {
-        private Menu menu = new Menu();
-
+    
 
         private bool isIdInitialized = false;
 
@@ -22,12 +23,12 @@ namespace Eksamen
 
         private void btnTilbageTilBrugere_Click(object sender, EventArgs e)
         {
-            menu.ÅbenBrugere(this);
+            Menu.Instance.ÅbenBrugere(this);
         }
 
         private void btnExit_Click(object sender, EventArgs e)
         {
-            menu.Exit(this);
+            Menu.Instance.Exit(this);
         }
 
 
@@ -52,7 +53,7 @@ namespace Eksamen
                 int telefonNumber;
                 if (int.TryParse(txtBoxTelefon.Text, out telefonNumber))
                 {
-                    Brugere newBruger = new Brugere(
+                    Bruger newBruger = new Bruger(
                         txtBoxNavn.Text,
                         txtBoxAdresse.Text,
                         txtBoxEmail.Text,
@@ -60,10 +61,10 @@ namespace Eksamen
                         txtBoxBeskrivelse.Text
                     );
 
-                    BrugerData.alleBrugereList.Add(newBruger);
+                    Personer.BrugerData.alleBrugereList.Add(newBruger);
 
                     // tilbage til brugere
-                    menu.ÅbenBrugere(this);
+                    Menu.Instance.ÅbenBrugere(this);
                 }
                 else
                 {
@@ -78,7 +79,7 @@ namespace Eksamen
 
         private bool unikBrugere(string brugerNavn)
         {
-            foreach (Brugere bruger in BrugerData.alleBrugereList)
+            foreach (Bruger bruger in Personer.BrugerData.alleBrugereList)
             {
                 if (bruger.Navn.Equals(brugerNavn))
                 {

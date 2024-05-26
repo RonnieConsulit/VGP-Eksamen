@@ -1,4 +1,6 @@
 using System.Windows.Forms;
+using Eksamen.Classes;
+using Menu = Eksamen.Classes.Menu;
 
 namespace Eksamen
 {
@@ -22,45 +24,43 @@ namespace Eksamen
         private void formBrugere_Load(object sender, EventArgs e)
         {
 
-            listBoxBrugere.DataSource = BrugerData.alleBrugereList;
-            listBoxBrugere.DisplayMember = "Info";
+            listBoxBrugere.DataSource = Personer.BrugerData.alleBrugereList;
+            listBoxBrugere.DisplayMember = "Navn";
 
             // Clear the selected item when the form loads
             listBoxBrugere.ClearSelected();
 
         }
 
-        private Menu menu = new Menu();
-
         private void btnDashboard_Click(object sender, EventArgs e)
         {
-            menu.ÅbnDashboard(this);
+            Menu.Instance.ÅbnDashboard(this);
         }
 
         private void btnAktiviteter_Click(object sender, EventArgs e)
         {
-            menu.ÅbnAktiviteter(this);
+            Menu.Instance.ÅbnAktiviteter(this);
         }
 
         private void btnTickets_Click(object sender, EventArgs e)
         {
-            menu.ÅbnTickets(this);
+            Menu.Instance.ÅbnTickets(this);
         }
 
         private void btnKunder_Click(object sender, EventArgs e)
         {
-            menu.ÅbnKunder(this);
+            Menu.Instance.ÅbnKunder(this);
         }
         private void btnBrugere_Click(object sender, EventArgs e)
         {
-            menu.ÅbenBrugere(this);
+            Menu.Instance.ÅbenBrugere(this);
         }
 
         private void ListBoxBrugere_SelectedIndexChanged(object sender, EventArgs e)
         {
             if (listBoxBrugere.SelectedItem != null)
             {
-                Brugere selectedBrugere = (Brugere)listBoxBrugere.SelectedItem;
+                Bruger selectedBrugere = (Bruger)listBoxBrugere.SelectedItem;
 
 
                 txtBoxNavn.Text = selectedBrugere.Navn;
@@ -93,19 +93,19 @@ namespace Eksamen
             if (listBoxBrugere.SelectedItem != null)
             {
 
-                Brugere selectBrugere = (Brugere)listBoxBrugere.SelectedItem;
+                Bruger selectBrugere = (Bruger)listBoxBrugere.SelectedItem;
 
                 int index = listBoxBrugere.SelectedIndex;
 
 
-                if (index >= 0 && index < BrugerData.alleBrugereList.Count)
+                if (index >= 0 && index < Personer.BrugerData.alleBrugereList.Count)
                 {
                     // Slet
-                    BrugerData.alleBrugereList.RemoveAt(index);
+                    Personer.BrugerData.alleBrugereList.RemoveAt(index);
 
                     // Opdater liste og clear tekst
                     listBoxBrugere.DataSource = null;
-                    listBoxBrugere.DataSource = BrugerData.alleBrugereList;
+                    listBoxBrugere.DataSource = Personer.BrugerData.alleBrugereList;
                     listBoxBrugere.DisplayMember = "Info";
                     txtBoxNavn.Text = "";
                     txtBoxAdresse.Text = "";
@@ -132,7 +132,7 @@ namespace Eksamen
             {
 
 
-                Brugere selectedBruger = (Brugere)listBoxBrugere.SelectedItem;
+                Bruger selectedBruger = (Bruger)listBoxBrugere.SelectedItem;
 
                 // Opdater
                 selectedBruger.Navn = txtBoxNavn.Text;
@@ -144,7 +144,7 @@ namespace Eksamen
                 }
                 selectedBruger.Beskrivelse = txtBoxBeskrivelse.Text;
                 listBoxBrugere.DataSource = null;
-                listBoxBrugere.DataSource = BrugerData.alleBrugereList;
+                listBoxBrugere.DataSource = Personer.BrugerData.alleBrugereList;
                 listBoxBrugere.DisplayMember = "Info";
 
 
@@ -160,12 +160,12 @@ namespace Eksamen
         private void btnTilføjBrugere_Click(object sender, EventArgs e)
         {
 
-            menu.ÅbenTilføjBrugere(this);
+            Menu.Instance.ÅbenTilføjBrugere(this);
         }
 
         private void btnExit_Click(object sender, EventArgs e)
         {
-            menu.Exit(this);
+            Menu.Instance.Exit(this);
         }
     }
 }

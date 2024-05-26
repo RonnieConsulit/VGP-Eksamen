@@ -1,3 +1,7 @@
+using Eksamen.Classes;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement;
+using Menu = Eksamen.Classes.Menu;
+
 namespace Eksamen
 {
     public partial class FormKunder : Form
@@ -12,52 +16,52 @@ namespace Eksamen
 
         private void formKunder_Load(object sender, EventArgs e)
         {
-            if (KunderData.alleKunderList == null || KunderData.alleKunderList.Count == 0)
+            if (Personer.KundeData.alleKunderList == null || Personer.KundeData.alleKunderList.Count == 0)
             {
             }
 
-            listBoxKunder.DataSource = KunderData.alleKunderList;
-            listBoxKunder.DisplayMember = "Info";
+            listBoxKunder.DataSource = Personer.KundeData.alleKunderList;
+            listBoxKunder.DisplayMember = "Navn";
 
 
             // Clear
             listBoxKunder.ClearSelected();
         }
 
-        private Menu menu = new Menu();
+
 
         private void btnDashboard_Click(object sender, EventArgs e)
         {
-            menu.ÅbnDashboard(this);
+            Menu.Instance.ÅbnDashboard(this);
         }
 
         private void btnAktiviteter_Click(object sender, EventArgs e)
         {
-            menu.ÅbnAktiviteter(this);
+            Menu.Instance.ÅbnAktiviteter(this);
         }
 
         private void btnTickets_Click(object sender, EventArgs e)
         {
-            menu.ÅbnTickets(this);
+            Menu.Instance.ÅbnTickets(this);
         }
 
         private void btnKunder_Click(object sender, EventArgs e)
         {
-            menu.ÅbnKunder(this);
+            Menu.Instance.ÅbnKunder(this);
         }
         private void btnBrugere_Click(object sender, EventArgs e)
         {
-            menu.ÅbenBrugere(this);
+            Menu.Instance.ÅbenBrugere(this);
         }
 
         private void btnTilføjKunder_Click(object sender, EventArgs e)
         {
-            menu.ÅbenTilføjKunder(this);
+            Menu.Instance.ÅbenTilføjKunder(this);
         }
 
         private void btnExit_Click(object sender, EventArgs e)
         {
-            menu.Exit(this);
+            Menu.Instance.Exit(this);
         }
 
         private void ListBoxKunder_SelectedIndexChanged(object sender, EventArgs e)
@@ -84,12 +88,13 @@ namespace Eksamen
 
         private void btnSletKunde_Click(object sender, EventArgs e)
         {
-            PersonHandler.DeleteKunde(listBoxKunder, txtBoxNavn, txtBoxAdresse, txtBoxEmail, txtBoxKontakt, txtBoxBeskrivelse);
+            Personer.Delete(listBoxKunder, txtBoxNavn, txtBoxAdresse, txtBoxEmail, txtBoxKontakt, txtBoxBeskrivelse, Personer.KundeData.alleKunderList);
         }
+
 
         private void btnGem_Click(object sender, EventArgs e)
         {
-            PersonHandler.UpdateKunde(listBoxKunder, txtBoxNavn, txtBoxAdresse, txtBoxEmail, txtBoxKontakt, txtBoxBeskrivelse);
+            Personer.Update<Kunde>(listBoxKunder, txtBoxNavn, txtBoxAdresse, txtBoxEmail, txtBoxKontakt, txtBoxBeskrivelse);
         }
 
     }

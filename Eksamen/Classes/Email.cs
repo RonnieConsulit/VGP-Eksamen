@@ -2,7 +2,7 @@
 using System.Net;
 using System.Net.Mail;
 
-namespace Eksamen
+namespace Eksamen.Classes
 {
     public class Email
     {

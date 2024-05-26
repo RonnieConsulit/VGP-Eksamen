@@ -1,3 +1,6 @@
+using Eksamen.Classes;
+using Menu = Eksamen.Classes.Menu;
+
 namespace Eksamen
 {
     public partial class FormDashboard : Form
@@ -41,39 +44,38 @@ namespace Eksamen
 
             int countLukkedeAkt = alleAktiviteter.Count(aktivitet => aktivitet.Status == "Lukket");
             textBoxLukkedeAkt.Text = countLukkedeAkt.ToString();
-            textBoxAntalBrugere.Text = BrugerData.alleBrugereList.Count.ToString();
-            textBoxAntalKunder.Text = KunderData.alleKunderList.Count.ToString();
+            textBoxAntalBrugere.Text = Personer.BrugerData.alleBrugereList.Count.ToString();
+            textBoxAntalKunder.Text = Personer.KundeData.alleKunderList.Count.ToString();
  
         }
-        private Menu menu = new Menu();
 
         private void btnDashboard_Click(object sender, EventArgs e)
         {
-            menu.ÅbnDashboard(this);
+           Menu.Instance.ÅbnDashboard(this);
         }
 
         private void btnAktiviteter_Click(object sender, EventArgs e)
         {
-            menu.ÅbnAktiviteter(this);
+            Menu.Instance.ÅbnAktiviteter(this);
         }
 
         private void btnTickets_Click(object sender, EventArgs e)
         {
-            menu.ÅbnTickets(this);
+            Menu.Instance.ÅbnTickets(this);
         }
 
         private void btnKunder_Click(object sender, EventArgs e)
         {
-            menu.ÅbnKunder(this);
+            Menu.Instance.ÅbnKunder(this);
         }
         private void btnBrugere_Click(object sender, EventArgs e)
         {
-            menu.ÅbenBrugere(this);
+            Menu.Instance.ÅbenBrugere(this);
         }
 
         private void btnExit_Click(object sender, EventArgs e)
         {
-            menu.Exit(this);
+            Menu.Instance.Exit(this);
         }
 
    

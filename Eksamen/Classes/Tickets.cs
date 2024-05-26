@@ -1,4 +1,4 @@
-﻿namespace Eksamen
+﻿namespace Eksamen.Classes
 {
     public class Ticket
     {
@@ -18,8 +18,13 @@
             Status = status;
         }
 
-        public override string ToString()
+        public Ticket()
         {
+
+        }
+
+        public override string ToString()
+        {r
             return $"Id: {Id}, Navn: {Navn}, Kunde: {Kunde}";
         }
 
@@ -71,10 +76,10 @@
                     return;
                 }
 
-                this.Navn = txtBoxNavn.Text;
-                this.Ansvarlig = comboBoxAnsvarlig.Text;
-                this.Kunde = comboBoxKunde.Text;
-                this.Status = comboBoxStatus.Text;
+                Navn = txtBoxNavn.Text;
+                Ansvarlig = comboBoxAnsvarlig.Text;
+                Kunde = comboBoxKunde.Text;
+                Status = comboBoxStatus.Text;
 
                 MessageBox.Show("Ændringerne er gemt.", "Gemt", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 UpdateListBox(listBoxTickets);
@@ -96,7 +101,7 @@
             listBoxTickets.DataSource = TicketData.alleTicketsList;
             listBoxTickets.DisplayMember = "Info";
 
-   
+
             listBoxTickets.SelectedIndex = selectedIndex;
         }
 
@@ -140,8 +145,8 @@
         {
             if (selectedTicket != null)
             {
-                Menu menu = new Menu();
-                menu.ÅbenTilføjAktiviteter(parentForm, selectedTicket);
+
+                Menu.Instance.ÅbenTilføjAktiviteter(parentForm, selectedTicket);
             }
             else
             {
@@ -153,7 +158,7 @@
         {
             if (listBoxAktiviteter.SelectedItem != null)
             {
-          
+
                 Aktiviteter selectedAktivitet = (Aktiviteter)listBoxAktiviteter.SelectedItem;
 
                 // Find tilhørende tickets
@@ -161,7 +166,7 @@
 
                 if (tilhørendeTicket != null)
                 {
-                    
+
                     tilhørendeTicket.AktivitetList.Remove(selectedAktivitet);
 
                     listBoxAktiviteter.DataSource = null;
@@ -181,32 +186,15 @@
             }
         }
 
-        public void SortAndDisplayTicketsInListBoxOpen(ListBox listBoxTickets)
+        public void SortAndDisplayTicketsInListBox(ListBox listBoxTickets, string status)
         {
-            // Clear the ListBox
+      
             listBoxTickets.DataSource = null;
             listBoxTickets.Items.Clear();
 
-            // Add each open activity to the ListBox
             foreach (Ticket ticket in TicketData.alleTicketsList)
             {
-                if (ticket.Status == "Åben")
-                {
-                    listBoxTickets.Items.Add(ticket);
-                }
-            }
-        }
-
-        public void SortAndDisplayTicketsInListBoxClosed(ListBox listBoxTickets)
-        {
-            // Clear the ListBox
-            listBoxTickets.DataSource = null;
-            listBoxTickets.Items.Clear();
-
-            // Add each open activity to the ListBox
-            foreach (Ticket ticket in TicketData.alleTicketsList)
-            {
-                if (ticket.Status == "Lukket")
+                if (ticket.Status == status)
                 {
                     listBoxTickets.Items.Add(ticket);
                 }
@@ -219,7 +207,7 @@
 
             if (!string.IsNullOrEmpty(kunde))
             {
-                foreach (Kunde ønsketKunde in KunderData.alleKunderList)
+                foreach (Kunde ønsketKunde in Personer.KundeData.alleKunderList)
                 {
                     if (ønsketKunde.Navn == kunde)
                     {

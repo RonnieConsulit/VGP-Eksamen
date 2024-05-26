@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Forms;
 
-namespace Eksamen
+namespace Eksamen.Classes
 {
     public class Aktiviteter
     {
@@ -24,6 +24,11 @@ namespace Eksamen
             Ansvarlig = ticket.Ansvarlig;
             Beskrivelse = beskrivelse;
             Status = "Åben";
+        }
+
+        public Aktiviteter()
+        {
+
         }
 
         protected virtual int GenerateId()
@@ -51,6 +56,30 @@ namespace Eksamen
             return alleAktiviteter;
         }
 
+        // new list for CSV
+        public static List<Aktiviteter> GetAllAktiviteterFromTicketsToCSV(List<Ticket> tickets)
+        {
+            List<Aktiviteter> alleAktiviteterCSV = new List<Aktiviteter>();
+
+            foreach (Ticket ticket in tickets)
+            {
+                foreach (Aktiviteter aktivitet in ticket.AktivitetList)
+                {
+                    // Create a new Aktiviteter object with all properties populated
+                    Aktiviteter fullAktivitet = new Aktiviteter(
+                        ticket,
+                        aktivitet.TicketNummer,
+                        aktivitet.Navn,
+                        aktivitet.Beskrivelse);
+
+               
+                    alleAktiviteterCSV.Add(fullAktivitet);
+                }
+            }
+
+            return alleAktiviteterCSV;
+        }
+
         public static bool CreateNewActivity(Ticket ticket, int ticketNummer, string navn, string beskrivelse)
         {
             if (string.IsNullOrWhiteSpace(navn) || string.IsNullOrWhiteSpace(beskrivelse))
@@ -73,24 +102,12 @@ namespace Eksamen
             }
         }
 
-        public static void DisplayAktiviteterInListBoxOpen(ListBox listBox, List<Aktiviteter> aktiviteter)
+        public static void DisplayAktiviteterInListBox(ListBox listBox, List<Aktiviteter> aktiviteter, string status)
         {
             listBox.Items.Clear();
             foreach (Aktiviteter aktivitet in aktiviteter)
             {
-                if (aktivitet.Status == "Åben")
-                {
-                    listBox.Items.Add(aktivitet);
-                }
-            }
-        }
-
-        public static void DisplayAktiviteterInListBoxClosed(ListBox listBox, List<Aktiviteter> aktiviteter)
-        {
-            listBox.Items.Clear();
-            foreach (Aktiviteter aktivitet in aktiviteter)
-            {
-                if (aktivitet.Status == "Lukket")
+                if (aktivitet.Status == status)
                 {
                     listBox.Items.Add(aktivitet);
                 }

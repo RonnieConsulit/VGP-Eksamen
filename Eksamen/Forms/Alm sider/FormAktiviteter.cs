@@ -2,14 +2,15 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Forms;
-using static System.Windows.Forms.VisualStyles.VisualStyleElement;
+using Eksamen.Classes;
+using Menu = Eksamen.Classes.Menu;
 
 namespace Eksamen
 {
     public partial class FormAktiviteter : Form
     {
         private List<Aktiviteter> alleAktiviteter;
-        Menu menu = new Menu();
+        private Aktiviteter aktInstance = new Aktiviteter();
 
         public FormAktiviteter()
         {
@@ -24,31 +25,6 @@ namespace Eksamen
             Aktiviteter.DisplayAktiviteterInListBox(listBoxAktiviteter, alleAktiviteter);
         }
 
-        private void btnDashboard_Click(object sender, EventArgs e)
-        {
-            menu.≈bnDashboard(this);
-        }
-
-        private void btnAktiviteter_Click(object sender, EventArgs e)
-        {
-            menu.≈bnAktiviteter(this);
-        }
-
-        private void btnTickets_Click(object sender, EventArgs e)
-        {
-            menu.≈bnTickets(this);
-        }
-
-        private void btnKunder_Click(object sender, EventArgs e)
-        {
-            menu.≈bnKunder(this);
-        }
-
-        private void btnBrugere_Click(object sender, EventArgs e)
-        {
-            menu.≈benBrugere(this);
-        }
-
         private void ListBoxAktiviteter_SelectedIndexChanged(object sender, EventArgs e)
         {
             if (listBoxAktiviteter.SelectedItem != null)
@@ -57,10 +33,10 @@ namespace Eksamen
 
                 txtBoxNavn.Text = selectedAktiviteter.Navn;
 
-                comboBoxAnsvarlig.DataSource = BrugerData.alleBrugereList;
+                comboBoxAnsvarlig.DataSource = Personer.BrugerData.alleBrugereList;
                 comboBoxAnsvarlig.DisplayMember = "Navn";
                 comboBoxAnsvarlig.ValueMember = "Navn";
-                Brugere selectedBruger = BrugerData.alleBrugereList.FirstOrDefault(k => k.Navn == selectedAktiviteter.Ansvarlig);
+                Bruger selectedBruger = Personer.BrugerData.alleBrugereList.FirstOrDefault(k => k.Navn == selectedAktiviteter.Ansvarlig);
                 comboBoxAnsvarlig.SelectedItem = selectedBruger;
 
                 comboBoxTickets.DataSource = TicketData.alleTicketsList
@@ -74,10 +50,10 @@ namespace Eksamen
                 comboBoxStatus.DataSource = TicketData.alleTicketStatus;
                 comboBoxStatus.SelectedItem = selectedAktiviteter.Status;
 
-                comboBoxKunder.DataSource = KunderData.alleKunderList;
+                comboBoxKunder.DataSource = Personer.KundeData.alleKunderList;
                 comboBoxKunder.DisplayMember = "Navn";
                 comboBoxKunder.ValueMember = "Navn";
-                Kunde selectedKunde = KunderData.alleKunderList.FirstOrDefault(b => b.Navn == selectedAktiviteter.Kunde);
+                Kunde selectedKunde = Personer.KundeData.alleKunderList.FirstOrDefault(b => b.Navn == selectedAktiviteter.Kunde);
                 comboBoxKunder.SelectedItem = selectedKunde;
 
                 txtBoxBeskrivelse.Text = selectedAktiviteter.Beskrivelse;
@@ -88,6 +64,31 @@ namespace Eksamen
             }
         }
 
+        private void btnDashboard_Click(object sender, EventArgs e)
+        {
+            Menu.Instance.≈bnDashboard(this);
+        }
+
+        private void btnAktiviteter_Click(object sender, EventArgs e)
+        {
+            Menu.Instance.≈bnAktiviteter(this);
+        }
+
+        private void btnTickets_Click(object sender, EventArgs e)
+        {
+            Menu.Instance.≈bnTickets(this);
+        }
+
+        private void btnKunder_Click(object sender, EventArgs e)
+        {
+            Menu.Instance.≈bnKunder(this);
+        }
+
+        private void btnBrugere_Click(object sender, EventArgs e)
+        {
+            Menu.Instance.≈benBrugere(this);
+        }
+
         private void btnExit_Click(object sender, EventArgs e)
         {
             Aktiviteter.Exit(this);
@@ -95,12 +96,12 @@ namespace Eksamen
 
         private void btnSort≈bne_Click(object sender, EventArgs e)
         {
-            Aktiviteter.DisplayAktiviteterInListBoxOpen(listBoxAktiviteter, alleAktiviteter);
+            Aktiviteter.DisplayAktiviteterInListBox(listBoxAktiviteter, alleAktiviteter, "≈ben");
         }
 
         private void btnSortLukket_Click(object sender, EventArgs e)
         {
-            Aktiviteter.DisplayAktiviteterInListBoxClosed(listBoxAktiviteter, alleAktiviteter);
+            Aktiviteter.DisplayAktiviteterInListBox(listBoxAktiviteter, alleAktiviteter, "Lukket");
         }
 
         private void btnGem_Click(object sender, EventArgs e)

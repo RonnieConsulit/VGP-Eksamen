@@ -2,13 +2,15 @@ using System;
 using System.Text;
 using System.Windows.Forms;
 using System.Windows.Forms.VisualStyles;
+using Eksamen.Classes;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement;
+using Menu = Eksamen.Classes.Menu;
 
 namespace Eksamen
 {
     public partial class FormTilføjTickets : Form
     {
-        private Menu menu = new Menu();
+        
 
 
         public FormTilføjTickets()
@@ -18,58 +20,58 @@ namespace Eksamen
 
         private void formTilføjTicket_Load(object sender, EventArgs e)
         {
-
-            var kundeNames = KunderData.alleKunderList.Select(kunde => kunde.Navn).ToList();
-            kundeNames.Insert(0, "");
+            // Load Kunde names into comboBoxKunde
+            var kundeNames = Personer.KundeData.alleKunderList.Select(kunde => kunde.Navn).ToList();
+            kundeNames.Insert(0, ""); // Add an empty option
             comboBoxKunde.DataSource = kundeNames;
 
-
-            var ansvarligNames = BrugerData.alleBrugereList.Select(bruger => bruger.Navn).ToList();
-            ansvarligNames.Insert(0, "");
+            // Load Bruger names into comboBoxAnsvarlig
+            var ansvarligNames = Personer.BrugerData.alleBrugereList.Select(bruger => bruger.Navn).ToList();
+            ansvarligNames.Insert(0, ""); // Add an empty option
             comboBoxAnsvarlig.DataSource = ansvarligNames;
 
+            // Set up comboBoxStatus
             comboBoxStatus.Items.AddRange(new string[] { "", "Åben", "Lukket" });
             comboBoxStatus.SelectedIndex = 0;
-
         }
         private void btnDashboard_Click(object sender, EventArgs e)
         {
-            menu.ÅbnDashboard(this);
+            Menu.Instance.ÅbnDashboard(this);
         }
 
         private void btnAktiviteter_Click(object sender, EventArgs e)
         {
-            menu.ÅbnAktiviteter(this);
+            Menu.Instance.ÅbnAktiviteter(this);
         }
 
         private void btnTickets_Click(object sender, EventArgs e)
         {
-            menu.ÅbnTickets(this);
+            Menu.Instance.ÅbnTickets(this);
         }
 
         private void btnKunder_Click(object sender, EventArgs e)
         {
-            menu.ÅbnKunder(this);
+            Menu.Instance.ÅbnKunder(this);
         }
 
         private void btnBrugere_Click(object sender, EventArgs e)
         {
-            menu.ÅbenBrugere(this);
+            Menu.Instance.ÅbenBrugere(this);
         }
 
         private void btnTilbageTilTicket_Click(object sender, EventArgs e)
         {
-            menu.ÅbnTickets(this);
+            Menu.Instance.ÅbnTickets(this);
         }
 
         private void btnExit_Click(object sender, EventArgs e)
         {
-            menu.Exit(this);
+            Menu.Instance.Exit(this);
         }
 
         private void btnTilbageTilTickets_Click(object sender, EventArgs e)
         {
-            menu.ÅbnTickets(this);
+            Menu.Instance.ÅbnTickets(this);
 
         }
 
@@ -88,7 +90,7 @@ namespace Eksamen
                 comboBoxAnsvarlig.SelectedIndex = -1;
                 comboBoxStatus.SelectedIndex = -1;
 
-                menu.ÅbnTickets(this);
+                Menu.Instance.ÅbnTickets(this);
             }
         }
     }

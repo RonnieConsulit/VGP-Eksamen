@@ -1,16 +1,36 @@
-﻿namespace Eksamen
+﻿namespace Eksamen.Classes
 {
     public class Menu
     {
+        private static Menu instance = null;
+        private static readonly object lockObject = new object();
 
         private Form activeForm = null;
+
+        // Private constructor to prevent instantiation
+        private Menu() { }
+
+        // Public static method to get the single instance
+        public static Menu Instance
+        {
+            get
+            {
+                lock (lockObject)
+                {
+                    if (instance == null)
+                    {
+                        instance = new Menu();
+                    }
+                    return instance;
+                }
+            }
+        }
 
         private void OpenNewForm(Form newForm)
         {
             foreach (Form openForm in Application.OpenForms)
             {
-                    openForm.Hide();
-                
+                openForm.Hide();
             }
 
             if (activeForm != null)
@@ -46,6 +66,7 @@
         {
             OpenNewForm(new FormBrugere());
         }
+
         public void ÅbenTilføjKunder(Form parentForm)
         {
             OpenNewForm(new FormTilføjKunder());
@@ -60,7 +81,6 @@
         {
             OpenNewForm(new FormTilføjBrugere());
         }
-
 
         public void ÅbenTilføjAktiviteter(Form parentForm, Ticket selectedTicket)
         {

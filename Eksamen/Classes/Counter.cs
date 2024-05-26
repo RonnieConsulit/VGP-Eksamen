@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Eksamen
+namespace Eksamen.Classes
 {
 
     public class Counter
@@ -34,5 +34,5 @@ namespace Eksamen
             return ++brugerCounter;
         }
     }
-    
+
 }

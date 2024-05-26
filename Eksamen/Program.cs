@@ -1,5 +1,6 @@
 using System;
 using System.Windows.Forms;
+using Eksamen.Datahåndtering;
 
 namespace Eksamen
 {
@@ -15,15 +16,14 @@ namespace Eksamen
             // see https://aka.ms/applicationconfiguration.
             ApplicationConfiguration.Initialize();
 
-            HardcodedData.InitializeTickets();
-            HardcodedData.InitializeKunder();
-            HardcodedData.InitializeBrugere();
+            CheckCSVExistence csvChecker = new CheckCSVExistence(Environment.CurrentDirectory);
+
+            csvChecker.CheckAndCreateCSVFiles();
+
+
 
             // Run the main form
             Application.Run(new FormDashboard());
-
-            // Initialize the hardcoded data after creating the main form
-
         }
     }
 }
