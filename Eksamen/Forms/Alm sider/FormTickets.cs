@@ -1,12 +1,12 @@
 using Eksamen.Classes;
+using Eksamen.Datahåndtering;
 using Menu = Eksamen.Classes.Menu;
 
 namespace Eksamen
 {
     public partial class FormTickets : Form
     {
-
-
+        CSVHandler csvHandler = new CSVHandler();
         private Ticket selectedTicket;
         Ticket ticketInstance = new Ticket(); 
 
@@ -117,10 +117,12 @@ namespace Eksamen
             if (selectedTicket != null)
             {
                 selectedTicket.UpdateTicketInfo(comboBoxKunde, comboBoxAnsvarlig, comboBoxStatus, txtBoxNavn, listBoxTickets);
+                csvHandler.UpdateAllCSVFiles();
             }
             else
             {
                 MessageBox.Show("Ingen ticket valgt. Vælg venligst en ticket.", "Advarsel", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                
             }
         }
 
@@ -129,6 +131,8 @@ namespace Eksamen
             if (selectedTicket != null)
             {
                 selectedTicket.DeleteSelectedTicket(listBoxTickets, txtBoxNavn, comboBoxAnsvarlig, comboBoxKunde, comboBoxStatus, listBoxAktiviteter);
+                csvHandler.UpdateAllCSVFiles();
+
             }
             else
             {
@@ -141,6 +145,7 @@ namespace Eksamen
             if (selectedTicket != null)
             {
                 selectedTicket.AddActivityToSelectedTicket(this, selectedTicket);
+                csvHandler.UpdateAllCSVFiles();
             }
             else
             {
@@ -153,6 +158,7 @@ namespace Eksamen
             if (selectedTicket != null)
             {
                 selectedTicket.DeleteSelectedActivity(listBoxAktiviteter);
+                csvHandler.UpdateAllCSVFiles();
             }
             else
             {
@@ -175,6 +181,7 @@ namespace Eksamen
             if (selectedTicket != null)
             {
                 selectedTicket.FakturerTicket(listBoxTickets, selectedTicket.Kunde);
+                csvHandler.UpdateAllCSVFiles();
             }
             else
             {

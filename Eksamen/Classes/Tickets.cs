@@ -24,7 +24,7 @@
         }
 
         public override string ToString()
-        {r
+        {
             return $"Id: {Id}, Navn: {Navn}, Kunde: {Kunde}";
         }
 
@@ -221,18 +221,17 @@
             {
                 if (listBoxTickets.SelectedItem != null)
                 {
-                    Ticket selectedTicket = (Ticket)listBoxTickets.SelectedItem; // Get the selected ticket
-
+                    Ticket selectedTicket = (Ticket)listBoxTickets.SelectedItem; 
                     // Close activities associated with the ticket
                     List<Aktiviteter> closedActivities = Aktiviteter.CloseActivitiesWithTicketNumber(selectedTicket);
 
-                    // Close the ticket
+                   
                     selectedTicket.Status = "Lukket";
 
-                    // Generate receipt
+                   
                     string kvittering = Kvittering.GenerateKvittering(selectedTicket, closedActivities);
 
-                    // Send receipt via email
+                   
                     Email emailService = new Email();
                     string subject = $"Kvittering for ticket: {selectedTicket.Navn}";
                     emailService.SendEmail(customerEmail, subject, kvittering);

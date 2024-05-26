@@ -1,4 +1,5 @@
 using Eksamen.Classes;
+using Eksamen.Datahåndtering;
 using System.Windows.Forms;
 using static Eksamen.Classes.Personer;
 
@@ -9,7 +10,7 @@ namespace Eksamen
 
 
         private FormKunder formKunder;
-
+        CSVHandler csvHandler = new CSVHandler();
 
         private bool isIdInitialized = false;
 
@@ -90,6 +91,7 @@ namespace Eksamen
                 );
 
                 Kunde.KundeData.alleKunderList.Add(newKunde);
+                csvHandler.UpdateAllCSVFiles();
 
                 // Navigate back to the customers form
                 Menu.Instance.ÅbnKunder(this);

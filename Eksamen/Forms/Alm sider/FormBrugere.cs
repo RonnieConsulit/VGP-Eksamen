@@ -1,5 +1,6 @@
 using System.Windows.Forms;
 using Eksamen.Classes;
+using Eksamen.Datahåndtering;
 using Menu = Eksamen.Classes.Menu;
 
 namespace Eksamen
@@ -13,6 +14,7 @@ namespace Eksamen
         private FormBrugere formBrugere;
         private FormDashboard formDashboard;
         private FormTilføjBrugere formTilføjBrugere;
+        CSVHandler csvHandler = new CSVHandler();
 
         public FormBrugere()
         {
@@ -114,6 +116,7 @@ namespace Eksamen
                     txtBoxBeskrivelse.Text = "";
 
                     MessageBox.Show("Brugern er slettet.", "Sletning", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    csvHandler.UpdateAllCSVFiles();
                 }
                 else
                 {
@@ -149,6 +152,7 @@ namespace Eksamen
 
 
                 MessageBox.Show("Ændringerne er gemt.", "Gemt", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                csvHandler.UpdateAllCSVFiles();
 
             }
             else

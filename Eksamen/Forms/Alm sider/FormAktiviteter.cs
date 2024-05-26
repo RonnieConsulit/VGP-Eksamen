@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Forms;
 using Eksamen.Classes;
+using Eksamen.Datahåndtering;
 using Menu = Eksamen.Classes.Menu;
 
 namespace Eksamen
@@ -11,6 +12,7 @@ namespace Eksamen
     {
         private List<Aktiviteter> alleAktiviteter;
         private Aktiviteter aktInstance = new Aktiviteter();
+        CSVHandler csvHandler = new CSVHandler();
 
         public FormAktiviteter()
         {
@@ -97,6 +99,7 @@ namespace Eksamen
         private void btnSortÅbne_Click(object sender, EventArgs e)
         {
             Aktiviteter.DisplayAktiviteterInListBox(listBoxAktiviteter, alleAktiviteter, "Åben");
+            
         }
 
         private void btnSortLukket_Click(object sender, EventArgs e)
@@ -107,6 +110,7 @@ namespace Eksamen
         private void btnGem_Click(object sender, EventArgs e)
         {
             Aktiviteter.Gem(listBoxAktiviteter, txtBoxNavn, comboBoxAnsvarlig, comboBoxStatus, comboBoxKunder, txtBoxBeskrivelse, comboBoxTickets);
+            csvHandler.UpdateAllCSVFiles();
         }
     }
 }

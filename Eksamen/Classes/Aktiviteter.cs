@@ -26,6 +26,18 @@ namespace Eksamen.Classes
             Status = "Åben";
         }
 
+        // til import
+        public Aktiviteter(Ticket ticket, int ticketNummer, string navn, string beskrivelse, int id)
+        {
+            Id = id;
+            Navn = navn;
+            TicketNummer = ticketNummer;
+            Kunde = ticket.Kunde;
+            Ansvarlig = ticket.Ansvarlig;
+            Beskrivelse = beskrivelse;
+            Status = "Åben";
+        }
+
         public Aktiviteter()
         {
 
@@ -56,29 +68,6 @@ namespace Eksamen.Classes
             return alleAktiviteter;
         }
 
-        // new list for CSV
-        public static List<Aktiviteter> GetAllAktiviteterFromTicketsToCSV(List<Ticket> tickets)
-        {
-            List<Aktiviteter> alleAktiviteterCSV = new List<Aktiviteter>();
-
-            foreach (Ticket ticket in tickets)
-            {
-                foreach (Aktiviteter aktivitet in ticket.AktivitetList)
-                {
-                    // Create a new Aktiviteter object with all properties populated
-                    Aktiviteter fullAktivitet = new Aktiviteter(
-                        ticket,
-                        aktivitet.TicketNummer,
-                        aktivitet.Navn,
-                        aktivitet.Beskrivelse);
-
-               
-                    alleAktiviteterCSV.Add(fullAktivitet);
-                }
-            }
-
-            return alleAktiviteterCSV;
-        }
 
         public static bool CreateNewActivity(Ticket ticket, int ticketNummer, string navn, string beskrivelse)
         {

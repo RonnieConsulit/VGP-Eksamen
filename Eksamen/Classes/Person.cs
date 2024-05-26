@@ -24,6 +24,16 @@ namespace Eksamen.Classes
             Id = GenerateId();
         }
 
+        // til import af data
+        public Personer(string navn, string adresse, string email, string beskrivelse, int id)
+        {
+            Navn = navn;
+            Adresse = adresse;
+            Email = email;
+            Beskrivelse = beskrivelse;
+            Id = Id;
+        }
+
         public static class KundeData
         {
             public static List<Kunde> alleKunderList { get; set; } = new List<Kunde>();
@@ -116,7 +126,6 @@ namespace Eksamen.Classes
                 selectedPerson.Adresse = txtBoxAdresse.Text;
                 selectedPerson.Email = txtBoxEmail.Text;
 
-                // Additional properties specific to Bruger or Kunde can be handled here
                 if (typeof(T) == typeof(Kunde))
                 {
                     ((Kunde)(object)selectedPerson).Kontakt = txtBoxKontakt.Text;
@@ -128,11 +137,11 @@ namespace Eksamen.Classes
 
                 selectedPerson.Beskrivelse = txtBoxBeskrivelse.Text;
 
-                // Check if the list type is Kunde
+            
                 if (typeof(T) == typeof(Kunde))
                 {
                     listBox.DataSource = null;
-                    listBox.DataSource = Personer.KundeData.alleKunderList;
+                    listBox.DataSource = KundeData.alleKunderList;
                 }
                 else if (typeof(T) == typeof(Bruger))
                 {
@@ -158,6 +167,13 @@ namespace Eksamen.Classes
 
         public Bruger(string navn, string adresse, string email, int telefon, string beskrivelse)
             : base(navn, adresse, email, beskrivelse)
+        {
+            Telefon = telefon;
+        }
+
+        // til import af data
+        public Bruger(string navn, string adresse, string email, int telefon, string beskrivelse, int id)
+    : base(navn, adresse, email, beskrivelse)
         {
             Telefon = telefon;
         }
@@ -194,6 +210,12 @@ namespace Eksamen.Classes
 
         public Kunde(string navn, string adresse, string email, string kontakt, string beskrivelse)
            : base(navn, adresse, email, beskrivelse)
+        {
+            Kontakt = kontakt;
+        }
+
+        public Kunde(string navn, string adresse, string email, string kontakt, string beskrivelse, int id)
+   : base(navn, adresse, email, beskrivelse)
         {
             Kontakt = kontakt;
         }

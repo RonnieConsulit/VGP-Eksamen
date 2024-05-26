@@ -3,6 +3,7 @@ using System.Text;
 using System.Windows.Forms;
 using System.Windows.Forms.VisualStyles;
 using Eksamen.Classes;
+using Eksamen.Datahåndtering;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 using Menu = Eksamen.Classes.Menu;
 
@@ -10,8 +11,8 @@ namespace Eksamen
 {
     public partial class FormTilføjTickets : Form
     {
-        
 
+        CSVHandler csvHandler = new CSVHandler();
 
         public FormTilføjTickets()
         {
@@ -91,6 +92,7 @@ namespace Eksamen
                 comboBoxStatus.SelectedIndex = -1;
 
                 Menu.Instance.ÅbnTickets(this);
+                csvHandler.UpdateAllCSVFiles();
             }
         }
     }

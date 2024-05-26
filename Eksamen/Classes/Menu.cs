@@ -7,10 +7,10 @@
 
         private Form activeForm = null;
 
-        // Private constructor to prevent instantiation
+
         private Menu() { }
 
-        // Public static method to get the single instance
+ 
         public static Menu Instance
         {
             get

@@ -1,4 +1,5 @@
 using Eksamen.Classes;
+using Eksamen.Datahåndtering;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 using Menu = Eksamen.Classes.Menu;
 
@@ -6,6 +7,7 @@ namespace Eksamen
 {
     public partial class FormKunder : Form
     {
+        CSVHandler csvHandler = new CSVHandler();
 
         public FormKunder()
         {
@@ -89,12 +91,14 @@ namespace Eksamen
         private void btnSletKunde_Click(object sender, EventArgs e)
         {
             Personer.Delete(listBoxKunder, txtBoxNavn, txtBoxAdresse, txtBoxEmail, txtBoxKontakt, txtBoxBeskrivelse, Personer.KundeData.alleKunderList);
+            csvHandler.UpdateAllCSVFiles();
         }
 
 
         private void btnGem_Click(object sender, EventArgs e)
         {
             Personer.Update<Kunde>(listBoxKunder, txtBoxNavn, txtBoxAdresse, txtBoxEmail, txtBoxKontakt, txtBoxBeskrivelse);
+            csvHandler.UpdateAllCSVFiles();
         }
 
     }

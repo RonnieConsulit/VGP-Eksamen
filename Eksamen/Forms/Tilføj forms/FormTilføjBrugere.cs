@@ -1,13 +1,14 @@
 using System.Windows.Forms;
 using Eksamen.Classes;
+using Eksamen.Datahåndtering;
 using Menu = Eksamen.Classes.Menu;
 
 namespace Eksamen
 {
     public partial class FormTilføjBrugere : Form
     {
-    
 
+        CSVHandler csvHandler = new CSVHandler();
         private bool isIdInitialized = false;
 
         public FormTilføjBrugere()
@@ -62,7 +63,7 @@ namespace Eksamen
                     );
 
                     Personer.BrugerData.alleBrugereList.Add(newBruger);
-
+                    csvHandler.UpdateAllCSVFiles();
                     // tilbage til brugere
                     Menu.Instance.ÅbenBrugere(this);
                 }

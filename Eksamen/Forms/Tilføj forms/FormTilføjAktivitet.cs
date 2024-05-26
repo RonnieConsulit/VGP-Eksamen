@@ -2,17 +2,20 @@ using System;
 using System.Linq;
 using System.Windows.Forms;
 using Eksamen.Classes;
+using Eksamen.Datahåndtering;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 using Menu = Eksamen.Classes.Menu;
 
 namespace Eksamen
 {
+    
     public partial class FormTilføjAktivitet : Form
     {
 
         private Ticket selectedTicket;
         List<Bruger> brugerList = Personer.BrugerData.alleBrugereList;
-        List<Kunde> kundeList = Personer.KundeData.alleKunderList;
+        List<Kunde> kundeList = Personer.KundeData.alleKunderList; 
+        CSVHandler csvHandler = new CSVHandler();
 
         public FormTilføjAktivitet(Ticket ticket)
         {
@@ -103,6 +106,7 @@ namespace Eksamen
                 comboBoxAnsvarlig.SelectedIndex = -1;
 
                 MessageBox.Show("Aktivitet tilføjet til ticket.", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                csvHandler.UpdateAllCSVFiles();
             }
             else
             {
