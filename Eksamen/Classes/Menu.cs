@@ -101,6 +101,7 @@
         {
             try
             {
+                // Close all open forms
                 foreach (Form openForm in Application.OpenForms)
                 {
                     if (openForm != parentForm)
@@ -108,11 +109,16 @@
                         openForm.Close();
                     }
                 }
+
+                // Close the parent form
                 parentForm.Close();
+
+                // Terminate the application
+                Application.Exit();
             }
-            catch (InvalidOperationException)
+            catch (InvalidOperationException ex)
             {
-                // Ignore the exception
+                MessageBox.Show($"Error closing the application: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
     }
