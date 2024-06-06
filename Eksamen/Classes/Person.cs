@@ -186,7 +186,7 @@ namespace Eksamen.Classes
         public override bool CreateNewUser(string navn, string adresse, string email, int telefon, string beskrivelse, List<Bruger> userList)
         {
             var newUser = new Bruger(navn, adresse, email, telefon, beskrivelse);
-            if (!newUser.ValidateFields())
+            if (!newUser. ())
             {
                 MessageBox.Show("Alle felter skal udfyldes.", "Advarsel", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return false;

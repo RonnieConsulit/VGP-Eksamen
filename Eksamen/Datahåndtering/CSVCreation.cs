@@ -144,11 +144,11 @@ namespace Eksamen.Datahåndtering
                         if (parts.Length >= 6)
                         {
                             int id = int.Parse(parts[0]);
-                            string navn = parts[2]; // Extracting name from index 2
-                            string adresse = parts[3]; // Extracting address from index 3
-                            string email = parts[4]; // Extracting email from index 4
-                            int telefon = int.Parse(parts[1]); // Extracting phone number from index 1
-                            string beskrivelse = parts[5]; // Extracting description from index 5
+                            string navn = parts[2];  
+                            string adresse = parts[3]; 
+                            string email = parts[4]; 
+                            int telefon = int.Parse(parts[1]); 
+                            string beskrivelse = parts[5];
 
                             // Add to the Bruger list
                             BrugerData.alleBrugereList.Add(new Bruger(navn, adresse, email, telefon, beskrivelse, id));

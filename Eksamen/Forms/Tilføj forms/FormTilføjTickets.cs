@@ -85,11 +85,7 @@ namespace Eksamen
             string status = comboBoxStatus.SelectedItem.ToString();
 
             if (Ticket.CreateNewTicket(navn, kunde, ansvarlig, status))
-            {
-                txtBoxNavn.Text = "";
-                comboBoxKunde.SelectedIndex = -1;
-                comboBoxAnsvarlig.SelectedIndex = -1;
-                comboBoxStatus.SelectedIndex = -1;
+            { 
 
                 Menu.Instance.ÅbnTickets(this);
                 csvHandler.UpdateAllCSVFiles();
